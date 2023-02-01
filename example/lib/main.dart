@@ -57,16 +57,11 @@ class _HomePageState extends State<HomePage> {
               DatePicker.showDatePicker(
                 context,
                 lunarPicker: lunar,
-                dateInitTime: time == null
-                    ? DateInitTime(
-                        currentTime: DateTime.now(),
-                        maxTime: DateTime(2026, 12, 12),
-                        minTime: DateTime(1990, 3, 4))
-                    : DateInitTime(
-                        currentTime:
-                            DateFormat("yyyy-MM-dd h:m").parse(time ?? ""),
-                        maxTime: DateTime(2026, 12, 12),
-                        minTime: DateTime(1990, 3, 4)),
+                dateInitTime: DateInitTime(
+                    currentTime: DateTime.now(),
+                    maxTime: DateTime(2026, 12, 12),
+                    minTime: DateTime(1990, 3, 4)),
+                showTime: false,
                 onConfirm: (time, lunar) {
                   debugPrint(time.toString());
                   setState(() {

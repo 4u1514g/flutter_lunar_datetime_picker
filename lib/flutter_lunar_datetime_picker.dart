@@ -442,8 +442,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   // Title View
   Widget _renderTitleActionsView(DatePickerTheme theme) {
-    const done = "完成";
-    const cancel = "取消";
+    const done = "Xong";
+    const cancel = "Hủy";
 
     return Container(
       height: theme.titleHeight,
@@ -490,7 +490,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                           ? MaterialStateProperty.all(Colors.transparent)
                           : MaterialStateProperty.all(theme.doneStyle.color)),
                   child: Text(
-                    "公历",
+                    "dương",
                     style: TextStyle(
                         color:
                             lunarPicker ? theme.doneStyle.color : Colors.white),
@@ -508,7 +508,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
                       backgroundColor: lunarPicker
                           ? MaterialStateProperty.all(theme.doneStyle.color)
                           : MaterialStateProperty.all(Colors.transparent)),
-                  child: Text("阴历",
+                  child: Text("âm",
                       style: TextStyle(
                           color: lunarPicker
                               ? Colors.white

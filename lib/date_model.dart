@@ -213,7 +213,7 @@ class DatePickerModel extends CommonPickerModel {
   void _fillLeftLists() {
     leftList = List.generate(maxTime.year - minTime.year + 1, (int index) {
       // print('LEFT LIST... ${minTime.year + index}${_localeYear()}');
-      return '${minTime.year + index}年';
+      return '${minTime.year + index}';
     });
   }
 
@@ -245,7 +245,7 @@ class DatePickerModel extends CommonPickerModel {
     int maxMonth = _maxMonthOfCurrentYear();
 
     middleList = List.generate(maxMonth - minMonth + 1, (int index) {
-      return '${minMonth + index}月';
+      return '${minMonth + index}';
     });
   }
 
@@ -253,7 +253,7 @@ class DatePickerModel extends CommonPickerModel {
     int maxDay = _maxDayOfCurrentMonth();
     int minDay = _minDayOfCurrentMonth();
     rightList = List.generate(maxDay - minDay + 1, (int index) {
-      return '${minDay + index}日';
+      return '${minDay + index}';
     });
   }
 
@@ -419,6 +419,7 @@ class LunarPickerModel extends CommonPickerModel {
   late Lunar maxLunarTime;
   late Lunar minLunarTime;
   late Lunar currentLunarTime;
+
   LunarPickerModel(
       {DateTime? currentTime, DateTime? maxTime, DateTime? minTime}) {
     this.maxTime = maxTime ?? DateTime(2049, 12, 31);
@@ -490,7 +491,7 @@ class LunarPickerModel extends CommonPickerModel {
     leftList = List.generate(
         maxLunarTime.getYear() - minLunarTime.getYear() + 1, (int index) {
       // print('LEFT LIST... ${minTime.year + index}${_localeYear()}');
-      return '${minLunarTime.getYear() + index}年';
+      return '${minLunarTime.getYear() + index}';
     });
   }
 
@@ -536,11 +537,63 @@ class LunarPickerModel extends CommonPickerModel {
   /// 检查是否是闰月
   bool isLeap(LunarMonth m) => m.getMonth() < 0;
 
+  // ignore: constant_identifier_names
+  static const List<String> MONTH = [
+    '',
+    'Th 1',
+    'Th 2',
+    'Th 3',
+    'Th 4',
+    'Th 5',
+    'Th 6',
+    'Th 7',
+    'Th 8',
+    'Th 9',
+    'Th 10',
+    'Th 11',
+    'Th 12'
+  ];
+
   /// 格式化获取农历月
   getLunarMiddleMonth(LunarMonth m) {
-    String month = LunarUtil.MONTH[m.getMonth().abs()];
-    middleList.add("${isLeap(m) ? "闰" : ""}$month月");
+    String month = MONTH[m.getMonth().abs()];
+    middleList.add(isLeap(m) ? "$month +" : month);
   }
+
+  // ignore: constant_identifier_names
+  static const List<String> DAY = [
+    '',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30'
+  ];
 
   void _fillRightLists() {
     int maxDay = _maxDayOfCurrentMonth();
@@ -550,7 +603,7 @@ class LunarPickerModel extends CommonPickerModel {
         maxDay - minDay + 1 < _maxDayOfCurrentMonth()
             ? maxDay - minDay + 1
             : _maxDayOfCurrentMonth(), (int index) {
-      return LunarUtil.DAY[minDay + index];
+      return DAY[minDay + index];
     });
   }
 
@@ -600,8 +653,10 @@ class LunarPickerModel extends CommonPickerModel {
   //获取当前最小月份指针
   int _getCurrentMiddleIndex() {
     int mCurrentMiddleIndex = 0;
+
     /// 检查是否闰月
-    bool isLeap = LunarYear.fromYear(currentLunarTime.getYear()).getLeapMonth() != 0;
+    bool isLeap =
+        LunarYear.fromYear(currentLunarTime.getYear()).getLeapMonth() != 0;
     debugPrint("isLeap:$isLeap");
     if (isLeap) {
       // 当前最小月为闰月
